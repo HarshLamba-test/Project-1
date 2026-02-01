@@ -2,7 +2,7 @@ variable "private_key_path" {
 
 
 
-  type    = string
+  type = string
 
 
 
@@ -22,7 +22,7 @@ variable "key_name" {
 
 
 
-  type        = string
+  type = string
 
 
 
@@ -30,7 +30,7 @@ variable "key_name" {
 
 
 
-  default     = "Neeharika_Terraform"
+  default = "Neeharika_Terraform"
 
 
 
@@ -46,7 +46,7 @@ variable "region" {
 
 
 
-  type        = string
+  type = string
 
 
 
@@ -54,7 +54,7 @@ variable "region" {
 
 
 
-  default     = "eu-west-1"
+  default = "eu-west-1"
 
 
 
@@ -74,7 +74,7 @@ variable "network_address_space" {
 
 
 
-  default     = "10.1.0.0/16"
+  default = "10.1.0.0/16"
 
 
 

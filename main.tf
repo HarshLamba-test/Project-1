@@ -22,7 +22,7 @@ data "aws_ami" "aws_linux2_x86" {
 
 
 
-  owners      = ["amazon"]
+  owners = ["amazon"]
 
 
 
@@ -34,7 +34,7 @@ data "aws_ami" "aws_linux2_x86" {
 
 
 
-    name   = "name"
+    name = "name"
 
 
 
@@ -54,7 +54,7 @@ data "aws_ami" "aws_linux2_x86" {
 
 
 
-    name   = "root-device-type"
+    name = "root-device-type"
 
 
 
@@ -74,7 +74,7 @@ data "aws_ami" "aws_linux2_x86" {
 
 
 
-    name   = "virtualization-type"
+    name = "virtualization-type"
 
 
 
@@ -94,7 +94,7 @@ data "aws_ami" "aws_linux2_x86" {
 
 
 
-    name   = "architecture"
+    name = "architecture"
 
 
 
@@ -122,11 +122,11 @@ resource "aws_vpc" "vpc" {
 
 
 
-  cidr_block           = var.network_address_space
+  cidr_block = var.network_address_space
 
 
 
-  enable_dns_support   = true
+  enable_dns_support = true
 
 
 
@@ -194,15 +194,15 @@ resource "aws_subnet" "subnet" {
 
 
 
-  count                   = var.subnet_count
+  count = var.subnet_count
 
 
 
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc.id
 
 
 
-  cidr_block              = cidrsubnet(var.network_address_space, 8, count.index)
+  cidr_block = cidrsubnet(var.network_address_space, 8, count.index)
 
 
 
@@ -210,7 +210,7 @@ resource "aws_subnet" "subnet" {
 
 
 
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
 
 
 
@@ -294,11 +294,11 @@ resource "aws_route_table_association" "rta-subnet" {
 
 
 
-  count          = var.subnet_count
+  count = var.subnet_count
 
 
 
-  subnet_id      = aws_subnet.subnet[count.index].id
+  subnet_id = aws_subnet.subnet[count.index].id
 
 
 
@@ -322,7 +322,7 @@ resource "aws_security_group" "web_sg" {
 
 
 
-  name        = "web-sg-"
+  name = "web-sg-"
 
 
 
@@ -330,7 +330,7 @@ resource "aws_security_group" "web_sg" {
 
 
 
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc.id
 
 
 
@@ -350,15 +350,15 @@ resource "aws_security_group" "web_sg" {
 
 
 
-    from_port   = 22
+    from_port = 22
 
 
 
-    to_port     = 22
+    to_port = 22
 
 
 
-    protocol    = "tcp"
+    protocol = "tcp"
 
 
 
@@ -386,15 +386,15 @@ resource "aws_security_group" "web_sg" {
 
 
 
-    from_port   = 80
+    from_port = 80
 
 
 
-    to_port     = 80
+    to_port = 80
 
 
 
-    protocol    = "tcp"
+    protocol = "tcp"
 
 
 
@@ -422,15 +422,15 @@ resource "aws_security_group" "web_sg" {
 
 
 
-    from_port   = 0
+    from_port = 0
 
 
 
-    to_port     = 0
+    to_port = 0
 
 
 
-    protocol    = "-1"
+    protocol = "-1"
 
 
 
@@ -474,19 +474,19 @@ resource "aws_instance" "myinstance" {
 
 
 
-  count                  = var.instance_count
+  count = var.instance_count
 
 
 
-  ami                    = data.aws_ami.aws_linux2_x86.id
+  ami = data.aws_ami.aws_linux2_x86.id
 
 
 
-  instance_type          = "t2.micro"
+  instance_type = "t2.micro"
 
 
 
-  subnet_id              = aws_subnet.subnet[count.index % var.subnet_count].id
+  subnet_id = aws_subnet.subnet[count.index % var.subnet_count].id
 
 
 
@@ -494,7 +494,7 @@ resource "aws_instance" "myinstance" {
 
 
 
-  key_name               = var.key_name
+  key_name = var.key_name
 
 
 
@@ -506,7 +506,7 @@ resource "aws_instance" "myinstance" {
 
 
 
-    encrypted   = true
+    encrypted = true
 
 
 
@@ -650,11 +650,11 @@ resource "aws_instance" "myinstance" {
 
 
 
-    Name      = "Terraform-${count.index + 1}"
+    Name = "Terraform-${count.index + 1}"
 
 
 
-    Role      = "web"
+    Role = "web"
 
 
 
@@ -686,7 +686,7 @@ output "aws_host_ip" {
 
 
 
-  value       = aws_instance.myinstance[*].private_ip
+  value = aws_instance.myinstance[*].private_ip
 
 
 
@@ -706,7 +706,7 @@ output "aws_public_dns" {
 
 
 
-  value       = aws_instance.myinstance[*].public_dns
+  value = aws_instance.myinstance[*].public_dns
 
 
 
@@ -726,7 +726,7 @@ output "web_instance_public_ips" {
 
 
 
-  value       = aws_instance.myinstance[*].public_ip
+  value = aws_instance.myinstance[*].public_ip
 
 
 
@@ -746,7 +746,7 @@ output "web_urls" {
 
 
 
-  value       = [for ip in aws_instance.myinstance[*].public_ip : "http://${ip}"]
+  value = [for ip in aws_instance.myinstance[*].public_ip : "http://${ip}"]
 
 
 

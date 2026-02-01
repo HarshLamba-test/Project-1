@@ -18,7 +18,7 @@ terraform {
 
 
 
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
 
 
 
